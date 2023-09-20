@@ -37,12 +37,12 @@ const registerNewBarcode = async (req,res) => {
 
 // @desc Verified and Update Barcode
 // @route POST /api/barcode/verify
-// @access Private
+// @access Private Only For Scanner
 const verifyBarcode = async (req,res) => {
     // check if data correctly requested
     if(!req.body.barcodeNumber) return res.status(400).json({message : 'Barcode is not define'})
     // check if barcode is already exists
-    const existsBarcode = await BarcodeModel.where({createdBy : req.user._id}).find().select('hashedBarcode quota').exec()
+    const existsBarcode = await BarcodeModel.where({createdBy : req.scannerData.createdBy}).find().select('hashedBarcode quota atEvent').exec()
     for(const barcode of existsBarcode){
         const match = await bcrypt.compareSync(req.body.barcodeNumber, barcode.hashedBarcode)
 
@@ -51,6 +51,7 @@ const verifyBarcode = async (req,res) => {
                 return res.status(401).json({message : 'Access denied, no quota left'})
             }
             barcode.quota--
+            barcode.atEvent.push(req.scannerData._id)
             await barcode.save()
             return res.status(200).json({message : `Access granted`})
         }

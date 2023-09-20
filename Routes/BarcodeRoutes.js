@@ -14,10 +14,10 @@ const {
     getBarcode
 } = require('../Controller/barcodeController')
 
-const { protectedRoute } = require('../Middleware/jwtMiddleware')
+const { protectedRoute, protectedScanner } = require('../Middleware/jwtMiddleware')
 
 router.post('/register',protectedRoute, urlEncodeParser, registerNewBarcode)
-router.post('/verify', protectedRoute, urlEncodeParser, verifyBarcode)
+router.post('/verify', protectedScanner, urlEncodeParser, verifyBarcode)
 router.get('/byEvent', protectedRoute, getBarcodeByEvent)
 router.get('/', protectedRoute, getBarcode)
 

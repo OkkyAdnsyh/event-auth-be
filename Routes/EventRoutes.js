@@ -9,7 +9,16 @@ const urlEncodeParser = bodyParser.urlencoded({extended : false})
 
 const {
     eventRegister,
-    getAssignBarcode
+    getAllEvent,
+    updateEvent,
+    deleteEvent
 } = require('../Controller/eventController')
 
 const { protectedRoute } = require('../Middleware/jwtMiddleware')
+
+router.post('/register', protectedRoute, urlEncodeParser, eventRegister)
+router.get('/', protectedRoute, urlEncodeParser, getAllEvent)
+router.put('/:id', protectedRoute, urlEncodeParser, updateEvent)
+router.delete('/:id', protectedRoute, deleteEvent)
+
+module.exports = router

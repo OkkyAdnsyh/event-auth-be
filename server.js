@@ -6,5 +6,7 @@ const app = express()
 
 app.use('/api/user', require('./Routes/UserRoutes'))
 app.use('/api/barcode', require('./Routes/BarcodeRoutes'))
+app.use('/api/event', require('./Routes/EventRoutes'))
+app.use('/api/scanner', require('./Routes/ScannerRoutes'))
 
 app.listen(process.env.PORT, () => {console.log(`server run on ${process.env.PORT}`)})

@@ -15,6 +15,9 @@ const eventModel = new Schema({
     createdBy : {
         type : mongoose.Schema.Types.ObjectId,
         ref : 'User'
+    },
+    token : {
+        type : Number
     }
 }, {timestamps : true})
 
