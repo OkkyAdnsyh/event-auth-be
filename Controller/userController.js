@@ -39,13 +39,13 @@ const userLogin = async (req, res) => {
     // check if username or email exists
     const userData = await UserModel.findOne({
         $or : [{
-            userName : req.body.userName
+            userName : req.body.name
         },{
-            email : req.body.email
+            email : req.body.name
         }]
     })
 
-    if(!userData) return res.status(400).json({message : "invalid username or password"})
+    if(!userData) return res.status(400).json({message : "invalid username/email or password"})
     // compare requested password with password in db
     if(!bcrypt.compareSync(req.body.password, userData.password)) return res.status(400).json({message : "Wrong password"})
     // set data payload for jwt

@@ -5,7 +5,8 @@ const mongoose = require('mongoose')
 
 mongoose.connect(process.env.DATABASE_URI)
 
-const urlEncodeParser = bodyParser.urlencoded({extended : false})
+const jsonParse = bodyParser.json()
+const urlEncodeParser = bodyParser.urlencoded({extended : true})
 
 const {
     registerNewUser,
@@ -18,10 +19,10 @@ const {
 const { protectedRoute } = require('../Middleware/jwtMiddleware')
 
 // registration route
-router.post('/register', urlEncodeParser ,registerNewUser)
+router.post('/register', jsonParse, urlEncodeParser, registerNewUser)
 
 // login route
-router.post('/login', urlEncodeParser, userLogin)
+router.post('/login',  jsonParse, urlEncodeParser, userLogin)
 
 // User data update route
 router.put('/:id', updateUserData)

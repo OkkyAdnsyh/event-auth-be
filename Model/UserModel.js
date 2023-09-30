@@ -5,15 +5,13 @@ const userModel = new Schema({
         type : String,
         max : 1024,
         min : 6,
-        required : [true, 'Please add username'],
-        unique : true
+        required : [true, 'Please add username']
     },
     email : {
         type : String,
         min : 6,
         max : 1024,
-        required : [true, 'Please add email'],
-        unique : true
+        required : [true, 'Please add email']
     },
     password : {
         type : String,
